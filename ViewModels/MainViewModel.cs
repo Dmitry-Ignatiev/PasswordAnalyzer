@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using PasswordAnalyzer.Services;
 using System.Windows.Media;
+using PasswordAnalyzer.Services;
 
 namespace PasswordAnalyzer.ViewModels
 {
@@ -45,7 +45,6 @@ namespace PasswordAnalyzer.ViewModels
             }
         }
 
-        // ✅ THIS MUST BE INSIDE THE CLASS
         public Brush BarColor
         {
             get
@@ -64,7 +63,16 @@ namespace PasswordAnalyzer.ViewModels
         {
             var result = _service.Analyze(_password);
 
-            Score = result.Score;
+            double entropy = EntropyCalculator.Calculate(_password);
+
+            // 🔥 convert entropy → score
+            int score = (int)(entropy * 2);
+
+            if (score > 100)
+                score = 100;
+
+            Score = score; // ✅ THIS WAS MISSING
+
             Strength = result.Strength;
         }
 
