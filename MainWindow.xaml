@@ -1,27 +1,36 @@
-<Window x:Class="PasswordAnalyzer.MainWindow"
+﻿<Window x:Class="PasswordAnalyzer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Password Analyzer" Height="250" Width="400">
+        Title="Password Analyzer"
+        Height="250"
+        Width="400">
+<Grid Margin="20">
 
-    <Grid Margin="20">
+    <StackPanel>
 
-        <StackPanel>
+        <!-- Instruction text -->
+        <TextBlock Text="Please enter password:"
+                   FontSize="18"
+                   Margin="0,0,0,10"/>
 
-            <TextBox Height="30"
-                     FontSize="16"
-                     Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+        <!-- Password input -->
+        <TextBox Height="30"
+                 FontSize="16"
+                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
 
-            <ProgressBar Height="20"
-                         Margin="0,15,0,0"
-                         Minimum="0"
-                         Maximum="100"
-                         Value="{Binding Score}" />
+        <!-- Strength bar -->
+<ProgressBar Height="20"
+             Margin="0,15,0,0"
+             Minimum="0"
+             Maximum="100"
+             Value="{Binding Score}"
+             Foreground="{Binding BarColor}" />
+        <!-- Strength label -->
+        <TextBlock FontSize="18"
+                   Margin="0,10,0,0"
+                   Text="{Binding Strength}" />
 
-            <TextBlock FontSize="18"
-                       Margin="0,15,0,0"
-                       Text="{Binding Strength}" />
+    </StackPanel>
 
-        </StackPanel>
-
-    </Grid>
+</Grid>
 </Window>

@@ -1,5 +1,4 @@
-using System.Windows;
-using PasswordAnalyzer.ViewModels;
+﻿using System.Windows;
 
 namespace PasswordAnalyzer
 {
@@ -8,7 +7,8 @@ namespace PasswordAnalyzer
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+
+            DataContext = new global::PasswordAnalyzer.ViewModels.MainViewModel();
         }
     }
 }
