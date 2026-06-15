@@ -12,7 +12,17 @@ namespace PasswordAnalyzer.ViewModels
         private string _strength = "";
 
         private readonly PasswordStrengthService _service = new();
+        private string _warning = "";
 
+        public string Warning
+        {
+            get => _warning;
+            set
+            {
+                _warning = value;
+                OnPropertyChanged();
+            }
+        }
         public string Password
         {
             get => _password;
@@ -59,12 +69,16 @@ namespace PasswordAnalyzer.ViewModels
             }
         }
 
-      private void AnalyzePassword()
+        private void AnalyzePassword()
     {
         var result = _service.Analyze(_password);
 
         Score = result.Score;
         Strength = result.Strength;
+
+        Warning = result.IsCommonPassword
+            ? "⚠ This password was found in the common-password file."
+            : "";
     }
 
         public event PropertyChangedEventHandler? PropertyChanged;

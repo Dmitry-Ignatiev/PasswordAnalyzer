@@ -6,12 +6,22 @@ namespace PasswordAnalyzer.Services
 {
     public class PasswordStrengthService
     {
+        private readonly PasswordBlacklistService _blacklist = new();
+
         public PasswordResult Analyze(string password)
         {
             int score = 0;
 
             if (string.IsNullOrWhiteSpace(password))
                 return new PasswordResult { Score = 0, Strength = "Empty" };
+
+            if (_blacklist.IsCommonPassword(password))
+                return new PasswordResult
+                {
+                    Score = 5,
+                    Strength = "Very Weak",
+                    IsCommonPassword = true
+                };
 
             if (password.Length < 6)
                 return new PasswordResult { Score = 10, Strength = "Very Weak" };
