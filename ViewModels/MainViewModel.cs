@@ -59,22 +59,13 @@ namespace PasswordAnalyzer.ViewModels
             }
         }
 
-        private void AnalyzePassword()
-        {
-            var result = _service.Analyze(_password);
+      private void AnalyzePassword()
+    {
+        var result = _service.Analyze(_password);
 
-            double entropy = EntropyCalculator.Calculate(_password);
-
-            // 🔥 convert entropy → score
-            int score = (int)(entropy * 2);
-
-            if (score > 100)
-                score = 100;
-
-            Score = score; // ✅ THIS WAS MISSING
-
-            Strength = result.Strength;
-        }
+        Score = result.Score;
+        Strength = result.Strength;
+    }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

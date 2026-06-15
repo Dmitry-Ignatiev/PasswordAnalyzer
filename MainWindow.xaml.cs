@@ -1,14 +1,13 @@
 ﻿using System.Windows;
+using PasswordAnalyzer.ViewModels;
 
-namespace PasswordAnalyzer
+namespace PasswordAnalyzer;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            DataContext = new global::PasswordAnalyzer.ViewModels.MainViewModel();
-        }
+        InitializeComponent();
+        this.DataContext = new MainViewModel();
     }
 }

@@ -10,8 +10,11 @@ namespace PasswordAnalyzer.Services
         {
             int score = 0;
 
-            if (string.IsNullOrEmpty(password))
+            if (string.IsNullOrWhiteSpace(password))
                 return new PasswordResult { Score = 0, Strength = "Empty" };
+
+            if (password.Length < 6)
+                return new PasswordResult { Score = 10, Strength = "Very Weak" };
 
             if (password.Length >= 8) score += 20;
             if (password.Length >= 12) score += 10;
@@ -24,6 +27,7 @@ namespace PasswordAnalyzer.Services
             if (password.Distinct().Count() > 6) score += 10;
 
             string strength =
+                score < 20 ? "Very Weak" :
                 score < 40 ? "Weak" :
                 score < 70 ? "Medium" :
                 "Strong";
